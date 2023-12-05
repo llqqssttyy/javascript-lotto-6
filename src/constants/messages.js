@@ -1,7 +1,11 @@
-import { TICKET_PRICE } from './constants.js';
+import { MAX_RANGE, MIN_RANGE, TICKET_PRICE } from './constants.js';
 
 const INPUTS = Object.freeze({
   purchaseMoney: '구입금액을 입력해 주세요.\n',
+
+  winningNumbers: '당첨 번호를 입력해 주세요.\n',
+
+  bonusNumber: '보너스 번호를 입력해 주세요.\n',
 });
 
 const OUTPUTS = Object.freeze({
@@ -26,6 +30,8 @@ const ERRORS = Object.freeze({
   isNotInteger: '입력 값은 정수여야 합니다.\n',
 
   invalidMoney: `로또 구매는 ${TICKET_PRICE.toLocaleString()}원 단위로만 가능합니다.\n`,
+
+  invalidRange: `로또 숫자는 ${MIN_RANGE}부터 ${MAX_RANGE} 사이의 정수만 가능합니다.`,
 });
 
 export const MESSAGES = Object.freeze({

@@ -8,6 +8,13 @@ class InputView {
     );
     return purchaseMoney;
   }
+
+  async getWinningNumbers() {
+    const winningNumbers = await Console.readLineAsync(
+      MESSAGES.INPUTS.winningNumbers,
+    );
+    return winningNumbers;
+  }
 }
 
 export default InputView;

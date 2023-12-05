@@ -6,7 +6,7 @@ class OutputView {
     const { printTotalAmountOfLotto, printLottosNumbers } = MESSAGES.OUTPUTS;
 
     Console.print(printTotalAmountOfLotto(lottosNumbers));
-    Console.print(printLottosNumbers(lottosNumbers));
+    Console.print(printLottosNumbers(lottosNumbers) + '\n');
   }
 }
 

@@ -17,12 +17,18 @@ class LottoController {
     await handleException(async () => await this.#purchaseLotto());
 
     this.#outputView.printPurchaseResult(this.#lottoMachine.lottoNumbers);
+
+    await handleException(async () => await this.#setWinningNumbers());
   }
 
   async #purchaseLotto() {
     const purchaseMoney = await this.#inputView.getPurchaseMoney();
     this.#lottoMachine.insertMoney(purchaseMoney);
     this.#lottoMachine.issueLottos();
+  }
+
+  async #setWinningNumbers() {
+    const winningNumbers = await this.#inputView.getWinningNumbers();
   }
 }
 
