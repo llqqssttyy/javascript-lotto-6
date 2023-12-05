@@ -2,7 +2,7 @@ import InputView from './views/InputView.js';
 import OutputView from './views/OutputView.js';
 
 import LottoController from './service/LottoController.js';
-import LottoMachine from './service/LottoMachine.js';
+import LottoMachine from './domains/models/LottoMachine.js';
 
 class App {
   async play() {

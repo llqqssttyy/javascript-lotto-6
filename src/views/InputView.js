@@ -3,7 +3,9 @@ import { MESSAGES } from '../constants/messages.js';
 
 class InputView {
   async getPurchaseMoney() {
-    const purchaseMoney = await Console.readLineAsync(MESSAGES.purchaseMoney);
+    const purchaseMoney = await Console.readLineAsync(
+      MESSAGES.INPUTS.purchaseMoney,
+    );
     return purchaseMoney;
   }
 }

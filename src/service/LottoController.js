@@ -1,4 +1,5 @@
-import { Console } from '@woowacourse/mission-utils';
+import { handleException } from '../utils/handleException';
+import LottoMachine from '../domains/models/LottoMachine';
 
 class LottoController {
   #outputView;
@@ -14,7 +15,12 @@ class LottoController {
   }
 
   async start() {
+    await handleException(async () => await this.#purchaseTicket());
+  }
+
+  async #purchaseTicket() {
     const purchaseMoney = await this.#inputView.getPurchaseMoney();
+    this.#lottoMachine.insertMoney(purchaseMoney);
   }
 }
 
