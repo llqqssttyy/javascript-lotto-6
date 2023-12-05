@@ -1,5 +1,4 @@
-import { handleException } from '../utils/handleException';
-import LottoMachine from '../domains/models/LottoMachine';
+import { handleException } from '../utils/handleException.js';
 
 class LottoController {
   #outputView;
@@ -15,12 +14,15 @@ class LottoController {
   }
 
   async start() {
-    await handleException(async () => await this.#purchaseTicket());
+    await handleException(async () => await this.#purchaseLotto());
+
+    this.#outputView.printPurchaseResult(this.#lottoMachine.lottoNumbers);
   }
 
-  async #purchaseTicket() {
+  async #purchaseLotto() {
     const purchaseMoney = await this.#inputView.getPurchaseMoney();
     this.#lottoMachine.insertMoney(purchaseMoney);
+    this.#lottoMachine.issueLottos();
   }
 }
 
