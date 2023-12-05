@@ -1,6 +1,7 @@
 import throwError from './throwError.js';
 
 import {
+  MAX_DRAW_SIZE,
   MAX_RANGE,
   MIN_RANGE,
   NUMBER_SEPERATOR,
@@ -10,11 +11,11 @@ import { MESSAGES } from '../constants/messages.js';
 
 // Common
 export const isEmptyString = (str) => {
-  if (str.trim() === '') throwError(MESSAGES.ERRORS.isNaN);
+  if (str.trim() === '') throwError(MESSAGES.ERRORS.isEmpty);
 };
 
 export const isPositive = (str) => {
-  if (!(Number(str) >= 0)) throwError(MESSAGES.ERRORS.isNotPositive);
+  if (!(Number(str) > 0)) throwError(MESSAGES.ERRORS.isNotPositive);
 };
 
 export const isInteger = (str) => {
@@ -27,9 +28,13 @@ export const isValidCost = (cost) => {
 };
 
 // WinningLotto
-export const hasOnlyInteger = (nums) => {
-  const numbers = nums.split(NUMBER_SEPERATOR);
+export const invalidNumbersFormat = (str) => {
+  if (str.split(NUMBER_SEPERATOR).length !== MAX_DRAW_SIZE)
+    throwError(MESSAGES.ERRORS.invalidNumbersForm);
+};
 
+// Lotto
+export const hasOnlyInteger = (numbers) => {
   const result = numbers.every((number) => {
     const num = Number(number);
     return !Number.isNaN(num) && Number.isInteger(num);
@@ -38,11 +43,11 @@ export const hasOnlyInteger = (nums) => {
   if (!result) throwError(MESSAGES.ERRORS.isNotInteger);
 };
 
-export const checkAllNumbersInRange = (nums) => {
-  const numbers = nums.split(NUMBER_SEPERATOR);
-
-  numbers.every((number) => {
+export const checkAllNumbersInRange = (numbers) => {
+  const result = numbers.every((number) => {
     const num = Number(number);
     return num <= MAX_RANGE && num >= MIN_RANGE;
   });
+
+  if (!result) throwError(MESSAGES.ERRORS.invalidRange);
 };
