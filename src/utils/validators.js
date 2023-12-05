@@ -51,3 +51,10 @@ export const checkAllNumbersInRange = (numbers) => {
 
   if (!result) throwError(MESSAGES.ERRORS.invalidRange);
 };
+
+export const isInRange = (str) => {
+  const num = Number(str);
+
+  if (!(num <= MAX_RANGE && num >= MIN_RANGE))
+    throwError(MESSAGES.ERRORS.invalidRange);
+};
