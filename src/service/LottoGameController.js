@@ -19,6 +19,7 @@ class LottoGameController {
 
   async #purchaseLotto() {
     const purchaseMoney = await this.#inputView.getMoney();
+    this.#lottoGame.purchaseLotto(purchaseMoney);
   }
 }
 
