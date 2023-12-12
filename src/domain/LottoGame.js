@@ -31,12 +31,21 @@ class LottoGame {
     this.#lottoMachine.generateBonusNumber();
   }
 
+  calculateResult() {
+    const purchaseLottos = this.#lottoMachine.purchaseLottos;
+    const winningNumbers = this.winningNumbers;
+
+    const result = purchaseLottos.map((lotto) => {
+      return lotto.getResult(winningNumbers);
+    });
+  }
+
   get issueCnt() {
     return this.#issueCnt;
   }
 
-  get purchaseLottos() {
-    return this.#lottoMachine.purchaseLottos;
+  get purchaseLottosNumbers() {
+    return this.#lottoMachine.purchaseLottosNumbers;
   }
 
   get winningNumbers() {

@@ -18,6 +18,8 @@ class LottoGameController {
     this.#printPurchaseResult();
 
     this.#printWinningNumbers();
+
+    this.#printWinningResult();
   }
 
   async #purchaseLotto() {
@@ -26,8 +28,8 @@ class LottoGameController {
   }
 
   #printPurchaseResult() {
-    const { issueCnt, purchaseLottos } = this.#lottoGame;
-    this.#outputView.printPurchaseResult(issueCnt, purchaseLottos);
+    const { issueCnt, purchaseLottosNumbers } = this.#lottoGame;
+    this.#outputView.printPurchaseResult(issueCnt, purchaseLottosNumbers);
   }
 
   #printWinningNumbers() {
@@ -35,6 +37,10 @@ class LottoGameController {
 
     const { winningNumbers, bonusNumber } = this.#lottoGame.winningNumbers;
     this.#outputView.printWinningNumbers(winningNumbers, bonusNumber);
+  }
+
+  #printWinningResult() {
+    this.#lottoGame.calculateResult();
   }
 }
 

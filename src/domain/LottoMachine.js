@@ -46,6 +46,10 @@ class LottoMachine {
   }
 
   get purchaseLottos() {
+    return this.#purchaseLottos;
+  }
+
+  get purchaseLottosNumbers() {
     return this.#purchaseLottos.map((lotto) => lotto.numbers);
   }
 
