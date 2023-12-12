@@ -20,7 +20,7 @@ class LottoMachine {
 
   #bonusNumber;
 
-  purchase(numOfLottos) {
+  generatePurchaseLottos(numOfLottos) {
     let curNumOfLottos = 0;
     while (curNumOfLottos < numOfLottos) {
       const numbers = this.#generateLottoNumbers();
@@ -31,8 +31,29 @@ class LottoMachine {
     }
   }
 
+  generateWinningLotto() {
+    const numbers = this.#generateLottoNumbers();
+    this.#winningLotto = new Lotto(numbers);
+  }
+
+  generateBonusNumber() {
+    const number = this.#generateLottoNumber();
+
+    if (this.#winningLotto.numbers.includes(number))
+      this.#generateLottoNumbers();
+
+    this.#bonusNumber = number;
+  }
+
   get purchaseLottos() {
     return this.#purchaseLottos.map((lotto) => lotto.numbers);
+  }
+
+  get winningNumbers() {
+    return {
+      winningNumbers: this.#winningLotto.numbers,
+      bonusNumber: this.#bonusNumber,
+    };
   }
 
   #generateLottoNumbers() {
@@ -40,6 +61,13 @@ class LottoMachine {
       MIN_NUMBER_OF_LOTTO,
       MAX_NUMBER_OF_LOTTO,
       NUMBERS_PER_LOTTO,
+    );
+  }
+
+  #generateLottoNumber() {
+    return MissionUtils.Random.pickNumberInRange(
+      MIN_NUMBER_OF_LOTTO,
+      MAX_NUMBER_OF_LOTTO,
     );
   }
 }

@@ -10,7 +10,8 @@ import {
 } from './validator/validatePurchaseMoney.js';
 
 class LottoGame {
-  #numOfLottos;
+  // TODO: LottoGame에 numOfLottos가 꼭 필요한지 생각해 보기..
+  #issueCnt;
 
   #lottoMachine;
 
@@ -21,16 +22,25 @@ class LottoGame {
   purchaseLotto(purchaseMoney) {
     this.#validateMoney(purchaseMoney);
 
-    this.#numOfLottos = purchaseMoney / PRICE_PER_LOTTO;
-    this.#lottoMachine.purchase(this.#numOfLottos);
+    this.#issueCnt = purchaseMoney / PRICE_PER_LOTTO;
+    this.#lottoMachine.generatePurchaseLottos(this.#issueCnt);
   }
 
-  get amount() {
-    return this.#numOfLottos;
+  pickWinningNumbers() {
+    this.#lottoMachine.generateWinningLotto();
+    this.#lottoMachine.generateBonusNumber();
+  }
+
+  get issueCnt() {
+    return this.#issueCnt;
   }
 
   get purchaseLottos() {
     return this.#lottoMachine.purchaseLottos;
+  }
+
+  get winningNumbers() {
+    return this.#lottoMachine.winningNumbers;
   }
 
   #validateMoney(purchaseMoney) {
