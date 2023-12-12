@@ -26,9 +26,15 @@ export const OUTPUTS = Object.freeze({
     return ''.concat(winnignNumsResult, ADDER, bonusNumResult);
   },
 
-  gameResultMsg: '\n당첨 결과',
-  gameResult(results) {
-    results.map(({ isWinningNumber, isBonusMatch }) => {});
+  gameResultsMsg: '\n당첨 결과',
+  gameResults(lottoResults) {
+    return `[${lottoResults
+      .map(({ number, isWinningNumber, isBonusMatch }) => {
+        return `${isWinningNumber ? '✓' : ''}${
+          isBonusMatch ? '•' : ''
+        }${number}`;
+      })
+      .join(NUMBER_SEPERATOR)}]`;
   },
 });
 

@@ -40,7 +40,8 @@ class LottoGameController {
   }
 
   #printWinningResult() {
-    this.#lottoGame.calculateResult();
+    const { gameResult } = this.#lottoGame;
+    this.#outputView.printGameResults(gameResult);
   }
 }
 

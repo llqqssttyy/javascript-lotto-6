@@ -7,7 +7,7 @@ class Prize {
     this.#winningStandards = WINNING_STANDARDS;
   }
 
-  getPrize(purchaseLotto) {}
+  getPrize(results) {}
 }
 
 export default Prize;

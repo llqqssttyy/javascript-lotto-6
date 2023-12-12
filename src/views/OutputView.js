@@ -20,6 +20,16 @@ class OutputView {
     Console.print(winningNumbersMsg);
     Console.print(winningNumbers(winningNums, bonusNum));
   }
+
+  printGameResults(lottosResults) {
+    const { gameResultsMsg, gameResults } = OUTPUTS;
+
+    Console.print(gameResultsMsg);
+
+    lottosResults.forEach((lottoResult) => {
+      Console.print(gameResults(lottoResult));
+    });
+  }
 }
 
 export default OutputView;

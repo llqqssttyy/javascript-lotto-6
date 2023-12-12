@@ -19,7 +19,7 @@ class Lotto {
     return this.#numbers.map((number) => {
       return {
         number,
-        isWinningNumber: this.#isWinningNumber(winningNumbers),
+        isWinningNumber: this.#isWinningNumber(winningNumbers, number),
         isBonusMatch: this.#isBonusMatch(bonusNumber),
       };
     });
@@ -35,12 +35,12 @@ class Lotto {
     }
   }
 
-  #isWinningNumber(winningNumbers) {
-    return this.#numbers.some((num) => winningNumbers.includes(num));
+  #isWinningNumber(winningNumbers, number) {
+    return winningNumbers.includes(number);
   }
 
-  #isBonusMatch(bonusNumber) {
-    return this.#numbers.includes(bonusNumber);
+  #isBonusMatch(bonusNumber, number) {
+    return bonusNumber === number;
   }
 }
 
