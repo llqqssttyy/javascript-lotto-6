@@ -25,6 +25,14 @@ class LottoGame {
     this.#lottoMachine.purchase(this.#numOfLottos);
   }
 
+  get amount() {
+    return this.#numOfLottos;
+  }
+
+  get purchaseLottos() {
+    return this.#lottoMachine.purchaseLottos;
+  }
+
   #validateMoney(purchaseMoney) {
     const { whitespace, invalidNumber, invalidRange, invalidUnit } = ERRORS;
 

@@ -15,11 +15,17 @@ class LottoGameController {
 
   async start() {
     await handleException(async () => this.#purchaseLotto());
+    this.#printPurchaseResult();
   }
 
   async #purchaseLotto() {
     const purchaseMoney = await this.#inputView.getMoney();
     this.#lottoGame.purchaseLotto(purchaseMoney);
+  }
+
+  #printPurchaseResult() {
+    const { amount, purchaseLottos } = this.#lottoGame;
+    this.#outputView.printPurchaseResult(amount, purchaseLottos);
   }
 }
 

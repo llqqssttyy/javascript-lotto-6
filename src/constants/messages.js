@@ -3,10 +3,16 @@ export const INPUTS = Object.freeze({
 });
 
 export const OUTPUTS = Object.freeze({
-  amountOfTickets(amontOfTickets) {
-    return `${this.amountOfTickets}개를 구매했습니다.`;
+  amountOfTickets(amount) {
+    return `\n${amount}개를 구매했습니다.`;
   },
-  purchaseTickets(tickets) {},
+  purchaseLottos(lottos) {
+    return lottos
+      .map((numbers) => {
+        return `[${numbers.join(', ')}]`;
+      })
+      .join('\n');
+  },
 });
 
 export const ERRORS = Object.freeze({
