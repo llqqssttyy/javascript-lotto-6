@@ -7,11 +7,18 @@ class OutputView {
    * @param {number} amount
    * @param {Array<number[]>} lottos
    */
-  printPurchaseResult(amount, lottos) {
-    const { amountOfTickets, purchaseLottos } = OUTPUTS;
+  printPurchaseResult(issueCnt, lottos) {
+    const { purchasLottosMsg, purchaseLottos } = OUTPUTS;
 
-    Console.print(amountOfTickets(amount));
+    Console.print(purchasLottosMsg(issueCnt));
     Console.print(purchaseLottos(lottos));
+  }
+
+  printWinningNumbers(winningNums, bonusNum) {
+    const { winningNumbersMsg, winningNumbers } = OUTPUTS;
+
+    Console.print(winningNumbersMsg);
+    Console.print(winningNumbers(winningNums, bonusNum));
   }
 }
 

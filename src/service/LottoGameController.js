@@ -34,7 +34,7 @@ class LottoGameController {
     this.#lottoGame.pickWinningNumbers();
 
     const { winningNumbers, bonusNumber } = this.#lottoGame.winningNumbers;
-    this.#outputView.printWinningNumbers();
+    this.#outputView.printWinningNumbers(winningNumbers, bonusNumber);
   }
 }
 

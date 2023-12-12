@@ -1,17 +1,34 @@
+import { NUMBER_SEPERATOR } from './constants.js';
+
 export const INPUTS = Object.freeze({
   purchaseMoney: '구입금액을 입력해 주세요.\n',
 });
 
 export const OUTPUTS = Object.freeze({
-  amountOfTickets(amount) {
-    return `\n${amount}개를 구매했습니다.`;
+  purchasLottosMsg(issueCnt) {
+    return `\n${issueCnt}개를 구매했습니다.`;
   },
   purchaseLottos(lottos) {
     return lottos
       .map((numbers) => {
-        return `[${numbers.join(', ')}]`;
+        return `[${numbers.join(NUMBER_SEPERATOR)}]`;
       })
       .join('\n');
+  },
+
+  winningNumbersMsg: '\n당첨 번호',
+  winningNumbers(winningNums, bonusNum) {
+    const ADDER = ' + ';
+
+    const winnignNumsResult = `[${winningNums.join(NUMBER_SEPERATOR)}]`;
+    const bonusNumResult = `[${bonusNum}]`;
+
+    return ''.concat(winnignNumsResult, ADDER, bonusNumResult);
+  },
+
+  gameResultMsg: '\n당첨 결과',
+  gameResult(results) {
+    results.map(({ isWinningNumber, isBonusMatch }) => {});
   },
 });
 
