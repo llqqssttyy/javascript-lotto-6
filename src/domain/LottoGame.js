@@ -2,6 +2,7 @@ import { PRICE_PER_LOTTO } from '../constants/constants.js';
 import { ERRORS } from '../constants/messages.js';
 import throwError from '../utils/throwError.js';
 import LottoMachine from './LottoMachine.js';
+import Statistics from './Statistics.js';
 import {
   isInvalidRange,
   isInvalidUnit,
@@ -15,8 +16,11 @@ class LottoGame {
 
   #lottoMachine;
 
+  #statistics;
+
   constructor() {
     this.#lottoMachine = new LottoMachine();
+    this.#statistics = new Statistics();
   }
 
   purchaseLotto(purchaseMoney) {
@@ -31,13 +35,21 @@ class LottoGame {
     this.#lottoMachine.generateBonusNumber();
   }
 
-  get gameResult() {
+  calcGameResults() {
     const purchaseLottos = this.#lottoMachine.purchaseLottos;
     const winningNumbers = this.winningNumbers;
 
-    return purchaseLottos.map((lotto) => {
+    this.#statistics.gameResults = purchaseLottos.map((lotto) => {
       return lotto.getResult(winningNumbers);
     });
+  }
+
+  calcStatistics() {
+    this.#statistics.statistics;
+  }
+
+  get gameResults() {
+    return this.#statistics.gameResults;
   }
 
   get issueCnt() {
