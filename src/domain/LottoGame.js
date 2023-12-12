@@ -1,6 +1,7 @@
 import { PRICE_PER_LOTTO } from '../constants/constants.js';
 import { ERRORS } from '../constants/messages.js';
 import throwError from '../utils/throwError.js';
+import LottoMachine from './LottoMachine.js';
 import {
   isInvalidRange,
   isInvalidUnit,
@@ -11,9 +12,17 @@ import {
 class LottoGame {
   #numOfLottos;
 
+  #lottoMachine;
+
+  constructor() {
+    this.#lottoMachine = new LottoMachine();
+  }
+
   purchaseLotto(purchaseMoney) {
     this.#validateMoney(purchaseMoney);
-    this.#numOfLottos = purchaseMoney % PRICE_PER_LOTTO;
+
+    this.#numOfLottos = purchaseMoney / PRICE_PER_LOTTO;
+    this.#lottoMachine.purchase(this.#numOfLottos);
   }
 
   #validateMoney(purchaseMoney) {
