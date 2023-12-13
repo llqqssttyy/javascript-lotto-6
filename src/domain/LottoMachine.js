@@ -60,6 +60,12 @@ class LottoMachine {
     };
   }
 
+  get gameResults() {
+    return this.#purchaseLottos.map((lotto) => {
+      return lotto.getResult(this.winningNumbers);
+    });
+  }
+
   #generateLottoNumbers() {
     return MissionUtils.Random.pickUniqueNumbersInRange(
       MIN_NUMBER_OF_LOTTO,

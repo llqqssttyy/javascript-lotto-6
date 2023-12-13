@@ -12,8 +12,11 @@ class Prize {
     this.#winningLottosCnts = this.#getWinningLottoCnts(matchedInfos);
   }
 
-  get totalPrize() {
-    return Object.entries(this.#winningLottosCnts).reduce(
+  getTotalPrize(gameResults) {
+    const matchedInfos = this.#getMatchedInfo(gameResults);
+    const winningLottosCnts = this.#getWinningLottoCnts(matchedInfos);
+
+    return Object.entries(winningLottosCnts).reduce(
       (totalPrize, [prizeKey, prizeCnt]) => {
         if (prizeCnt !== 0)
           totalPrize = totalPrize + PRIZES[prizeKey] * prizeCnt;
@@ -23,6 +26,9 @@ class Prize {
     );
   }
 
+  get winningLottosCnts() {
+    return this.#winningLottosCnts;
+  }
   /**
    * 로또
    * @param {Array<Array<{number: number, isWinningNumber: boolean, isBonusMatch: boolean}>>} gameResults
@@ -58,10 +64,6 @@ class Prize {
       },
       Object.fromEntries(PRIZE_KEYS.map((key) => [key, 0])),
     );
-  }
-
-  get winningLottosCnts() {
-    return this.#winningLottosCnts;
   }
 }
 

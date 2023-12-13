@@ -12,7 +12,6 @@ import {
 } from './validator/validatePurchaseMoney.js';
 
 class LottoGame {
-  // TODO: LottoGame에 numOfLottos가 꼭 필요한지 생각해 보기..
   #issueCnt;
 
   #gameResults;
@@ -41,16 +40,8 @@ class LottoGame {
     this.#lottoMachine.generateBonusNumber();
   }
 
-  calcGameResults() {
-    const purchaseLottos = this.#lottoMachine.purchaseLottos;
-    const winningNumbers = this.winningNumbers;
-    this.#gameResults = purchaseLottos.map((lotto) => {
-      return lotto.getResult(winningNumbers);
-    });
-  }
-
   calcStatistics() {
-    this.#prize.setWinningLottosCnts(this.#gameResults);
+    this.#prize.setWinningLottosCnts(this.gameResults);
     this.#statistics.totalPurchasePrice = this.#issueCnt * PRICE_PER_LOTTO;
     this.#statistics.totalPrize = this.#prize.totalPrize;
   }
@@ -68,7 +59,7 @@ class LottoGame {
   }
 
   get gameResults() {
-    return this.#gameResults;
+    return this.#lottoMachine.gameResults;
   }
 
   get winningLottoCnts() {
@@ -76,7 +67,9 @@ class LottoGame {
   }
 
   get statistics() {
-    return this.#statistics.statistics;
+    const totalPrize = this.#prize.getTotalPrize(this.gameResults);
+    const totalPurchasePrice = this.#issueCnt * PRICE_PER_LOTTO;
+    return this.#statistics.getStatistics(totalPrize, totalPurchasePrice);
   }
 
   #validateMoney(purchaseMoney) {

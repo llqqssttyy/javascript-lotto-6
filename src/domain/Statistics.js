@@ -14,6 +14,10 @@ class Statistics {
   get statistics() {
     return (this.#totalPrize / this.#totalPurchasePrice) * 100;
   }
+
+  getStatistics(totalPrize, totalPurchasePrice) {
+    return (totalPrize / totalPurchasePrice) * 100;
+  }
 }
 
 export default Statistics;
