@@ -1,4 +1,5 @@
 import { NUMBER_SEPERATOR } from './constants.js';
+import { PRIZES, WINNING_STANDARDS } from './winningStandards.js';
 
 export const INPUTS = Object.freeze({
   purchaseMoney: '구입금액을 입력해 주세요.\n',
@@ -35,6 +36,22 @@ export const OUTPUTS = Object.freeze({
         }${number}`;
       })
       .join(NUMBER_SEPERATOR)}]`;
+  },
+
+  statisticsMsg: '\n당첨 통계',
+  divider: '---',
+  winningLottoCnts(cnts) {
+    return Object.entries(cnts)
+      .map(([prizeKey, prizeCnt]) => {
+        return `${WINNING_STANDARDS[prizeKey].matchCnt}개 일치 (${PRIZES[
+          prizeKey
+        ].toLocaleString()}원) - ${prizeCnt}개`;
+      })
+      .reverse()
+      .join('\n');
+  },
+  statistics(percent) {
+    return `총 수익률은 ${percent.toFixed(1)}%입니다.`;
   },
 });
 

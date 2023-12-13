@@ -1,24 +1,18 @@
-import Prize from './Prize.js';
-
 class Statistics {
-  #prize;
+  #totalPurchasePrice;
 
-  #gameResults;
+  #totalPrize;
 
-  constructor() {
-    this.#prize = new Prize();
+  set totalPurchasePrice(totalPurchasePrice) {
+    this.#totalPurchasePrice = totalPurchasePrice;
   }
 
-  set gameResults(gameResults) {
-    this.#gameResults = gameResults;
-  }
-
-  get gameResults() {
-    return this.#gameResults;
+  set totalPrize(totalPrize) {
+    this.#totalPrize = totalPrize;
   }
 
   get statistics() {
-    this.#prize.setWinningLottosCnt(this.#gameResults);
+    return (this.#totalPrize / this.#totalPurchasePrice) * 100;
   }
 }
 

@@ -2,6 +2,7 @@ import { PRICE_PER_LOTTO } from '../constants/constants.js';
 import { ERRORS } from '../constants/messages.js';
 import throwError from '../utils/throwError.js';
 import LottoMachine from './LottoMachine.js';
+import Prize from './Prize.js';
 import Statistics from './Statistics.js';
 import {
   isInvalidRange,
@@ -14,13 +15,18 @@ class LottoGame {
   // TODO: LottoGame에 numOfLottos가 꼭 필요한지 생각해 보기..
   #issueCnt;
 
+  #gameResults;
+
   #lottoMachine;
 
   #statistics;
 
+  #prize;
+
   constructor() {
     this.#lottoMachine = new LottoMachine();
     this.#statistics = new Statistics();
+    this.#prize = new Prize();
   }
 
   purchaseLotto(purchaseMoney) {
@@ -38,18 +44,15 @@ class LottoGame {
   calcGameResults() {
     const purchaseLottos = this.#lottoMachine.purchaseLottos;
     const winningNumbers = this.winningNumbers;
-
-    this.#statistics.gameResults = purchaseLottos.map((lotto) => {
+    this.#gameResults = purchaseLottos.map((lotto) => {
       return lotto.getResult(winningNumbers);
     });
   }
 
   calcStatistics() {
-    this.#statistics.statistics;
-  }
-
-  get gameResults() {
-    return this.#statistics.gameResults;
+    this.#prize.setWinningLottosCnts(this.#gameResults);
+    this.#statistics.totalPurchasePrice = this.#issueCnt * PRICE_PER_LOTTO;
+    this.#statistics.totalPrize = this.#prize.totalPrize;
   }
 
   get issueCnt() {
@@ -62,6 +65,18 @@ class LottoGame {
 
   get winningNumbers() {
     return this.#lottoMachine.winningNumbers;
+  }
+
+  get gameResults() {
+    return this.#gameResults;
+  }
+
+  get winningLottoCnts() {
+    return this.#prize.winningLottosCnts;
+  }
+
+  get statistics() {
+    return this.#statistics.statistics;
   }
 
   #validateMoney(purchaseMoney) {

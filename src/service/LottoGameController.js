@@ -50,6 +50,9 @@ class LottoGameController {
 
   #printStatisticsResult() {
     this.#lottoGame.calcStatistics();
+
+    const { winningLottoCnts, statistics } = this.#lottoGame;
+    this.#outputView.printStatistics(winningLottoCnts, statistics);
   }
 }
 

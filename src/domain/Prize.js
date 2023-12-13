@@ -1,17 +1,49 @@
 import {
+  PRIZES,
   PRIZE_KEYS,
   WINNING_STANDARDS,
 } from '../constants/winningStandards.js';
 
 class Prize {
-  #winningLottosCnt;
+  #winningLottosCnts;
 
-  setWinningLottosCnt(gameResults) {
-    const matchedInfos = gameResults.map((gameResult) => {
-      return this.#matchInfo(gameResult);
+  setWinningLottosCnts(gameResults) {
+    const matchedInfos = this.#getMatchedInfo(gameResults);
+    this.#winningLottosCnts = this.#getWinningLottoCnts(matchedInfos);
+  }
+
+  get totalPrize() {
+    return Object.entries(this.#winningLottosCnts).reduce(
+      (totalPrize, [prizeKey, prizeCnt]) => {
+        if (prizeCnt !== 0)
+          totalPrize = totalPrize + PRIZES[prizeKey] * prizeCnt;
+        return totalPrize;
+      },
+      0,
+    );
+  }
+
+  /**
+   * 로또
+   * @param {Array<Array<{number: number, isWinningNumber: boolean, isBonusMatch: boolean}>>} gameResults
+   */
+  #getMatchedInfo(gameResults) {
+    return gameResults.map((gameResult) => {
+      return gameResult.reduce(
+        (matchInfo, { isWinningNumber, isBonusMatch }) => {
+          if (isWinningNumber) matchInfo.matchCnt += 1;
+
+          if (isBonusMatch) matchInfo.bonusMatch = true;
+
+          return matchInfo;
+        },
+        { matchCnt: 0, bonusMatch: false },
+      );
     });
+  }
 
-    const result = matchedInfos.reduce(
+  #getWinningLottoCnts(matchedInfos) {
+    return matchedInfos.reduce(
       (count, { matchCnt, bonusMatch }) => {
         Object.entries(WINNING_STANDARDS).forEach(
           ([prizeKey, prizeCondition]) => {
@@ -26,28 +58,10 @@ class Prize {
       },
       Object.fromEntries(PRIZE_KEYS.map((key) => [key, 0])),
     );
-    console.log(result);
   }
 
-  /**
-   * 로또 하나의 상금 금액을 구함
-   * @param {Array<{number: number, isWinningNumber: boolean, isBonusMatch: boolean}>} gameResults
-   */
-  #matchInfo(lotto) {
-    return lotto.reduce(
-      (matchInfo, { isWinningNumber, isBonusMatch }) => {
-        if (isWinningNumber) matchInfo.matchCnt += 1;
-
-        if (isBonusMatch) matchInfo.bonusMatch = true;
-
-        return matchInfo;
-      },
-      { matchCnt: 0, bonusMatch: false },
-    );
-  }
-
-  get winningLottsCnt() {
-    return this.#winningLottosCnt;
+  get winningLottosCnts() {
+    return this.#winningLottosCnts;
   }
 }
 

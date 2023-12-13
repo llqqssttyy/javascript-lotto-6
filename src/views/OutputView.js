@@ -30,6 +30,15 @@ class OutputView {
       Console.print(gameResults(lottoResult));
     });
   }
+
+  printStatistics(cnts, percent) {
+    const { statisticsMsg, divider, winningLottoCnts, statistics } = OUTPUTS;
+
+    Console.print(statisticsMsg);
+    Console.print(divider);
+    Console.print(winningLottoCnts(cnts));
+    Console.print(statistics(percent));
+  }
 }
 
 export default OutputView;
